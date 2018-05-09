@@ -1,26 +1,25 @@
 # WorkshopMUDA
 
-## Resources
-### Resources web
+## Resources web
 - https://shiftr.io/
 - https://io.adafruit.com/
 
-### Resources electronic
-#### Feather PINS
+## Resources electronic
+### Feather PINS
 - https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/pinouts
 
-## About snippets
-### FeatherMqttAdafruitioLed
+# About snippets
+## FeatherMqttAdafruitioLed
 Simple led blinking linked with Shiftr (not finished)
 
-### FeatherPIR
+## FeatherPIR
 Simple reading of the PIR sensor
 
-### HtmlCssJqueryJqueryuiMqttShiftrBoilerplate
+## HtmlCssJqueryJqueryuiMqttShiftrBoilerplate
 Javascript with Shiftr
 
-### ProcessingAndroidMqttShiftrLocation
+## ProcessingAndroidMqttShiftrLocation
 Processing Android with Shiftr
 
-### ProcessingMqttShiftrBoilerplate
+## ProcessingMqttShiftrBoilerplate
 Processing with Shiftr
