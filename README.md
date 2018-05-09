@@ -1,4 +1,11 @@
 # WorkshopMUDA
+## Resources web
+- https://shiftr.io/
+- https://io.adafruit.com/
+
+## Resources electronic
+### Feather PINS
+- https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/pinouts
 
 ## FeatherMqttAdafruitioLed
 Simple led blinking linked with Shiftr (not finished)
