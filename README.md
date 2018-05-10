@@ -10,6 +10,10 @@
 * It has Wifi !
 * Can be powered with a small 3,7V LiPo battery
 
+## Shiftr.io connection !
+workshoppers@fragment.in
+mudap---
+
 ## Quick start
 1. Start by downloading arduino
 https://www.arduino.cc/en/Main/Software
