@@ -1,4 +1,4 @@
-// This example uses an Adafruit Huzzah ESP8266
+// This example uses an ESP32 Development Board
 // to connect to shiftr.io.
 //
 // You can check on your device after a successful
@@ -7,18 +7,16 @@
 // by Joël Gähwiler
 // https://github.com/256dpi/arduino-mqtt
 
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <MQTTClient.h>
 
-const char ssid[] = "AndroidAP";
-const char pass[] = "tmpq4086";
+const char ssid[] = "ssid";
+const char pass[] = "pass";
 
-WiFiClientSecure net;
+WiFiClient net;
 MQTTClient client;
 
 unsigned long lastMillis = 0;
-
-void connect();  // <- predefine connect() for setup()
 
 void setup() {
   Serial.begin(115200);
@@ -26,9 +24,7 @@ void setup() {
 
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported by Arduino.
   // You need to set the IP address directly.
-  //
-  // MQTT brokers usually use port 8883 for secure connections.
-  client.begin("broker.shiftr.io", 8883, net);   //mqtt://frgmntnmuda:b0672a7de83013f5@broker.shiftr.io
+  client.begin("broker.shiftr.io", net);
   client.onMessage(messageReceived);
 
   connect();
@@ -42,14 +38,14 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  while (!client.connect("feather", "workshoppers", "mudapowa")) {
+  while (!client.connect("arduino", "try", "try")) {
     Serial.print(".");
     delay(1000);
   }
 
   Serial.println("\nconnected!");
 
-  client.subscribe("/inspired");
+  client.subscribe("/hello");
   // client.unsubscribe("/hello");
 }
 
@@ -64,7 +60,7 @@ void loop() {
   // publish a message roughly every second.
   if (millis() - lastMillis > 1000) {
     lastMillis = millis();
-    client.publish("/miam", "mmmmmmhhh");
+    client.publish("/hello", "world");
   }
 }
 

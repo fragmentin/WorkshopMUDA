@@ -1,5 +1,5 @@
-// This example uses an Adafruit Huzzah ESP8266
-// to connect to shiftr.io.
+// This example uses an Arduino Uno together with
+// an Ethernet Shield to connect to shiftr.io.
 //
 // You can check on your device after a successful
 // connection here: https://shiftr.io/try.
@@ -7,55 +7,44 @@
 // by Joël Gähwiler
 // https://github.com/256dpi/arduino-mqtt
 
-#include <ESP8266WiFi.h>
+#include <Ethernet.h>
 #include <MQTTClient.h>
 
-const char ssid[] = "AndroidAP";
-const char pass[] = "tmpq4086";
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+byte ip[] = {192, 168, 1, 177};  // <- change to match your network
 
-WiFiClientSecure net;
+EthernetClient net;
 MQTTClient client;
 
 unsigned long lastMillis = 0;
 
-void connect();  // <- predefine connect() for setup()
-
 void setup() {
   Serial.begin(115200);
-  WiFi.begin(ssid, pass);
+  Ethernet.begin(mac, ip);
 
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported by Arduino.
   // You need to set the IP address directly.
-  //
-  // MQTT brokers usually use port 8883 for secure connections.
-  client.begin("broker.shiftr.io", 8883, net);   //mqtt://frgmntnmuda:b0672a7de83013f5@broker.shiftr.io
+  client.begin("broker.shiftr.io", net);
   client.onMessage(messageReceived);
 
   connect();
 }
 
 void connect() {
-  Serial.print("checking wifi...");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(1000);
-  }
-
-  Serial.print("\nconnecting...");
-  while (!client.connect("feather", "workshoppers", "mudapowa")) {
+  Serial.print("connecting...");
+  while (!client.connect("arduino", "try", "try")) {
     Serial.print(".");
     delay(1000);
   }
 
   Serial.println("\nconnected!");
 
-  client.subscribe("/inspired");
+  client.subscribe("/hello");
   // client.unsubscribe("/hello");
 }
 
 void loop() {
   client.loop();
-  delay(10);  // <- fixes some issues with WiFi stability
 
   if (!client.connected()) {
     connect();
@@ -64,7 +53,7 @@ void loop() {
   // publish a message roughly every second.
   if (millis() - lastMillis > 1000) {
     lastMillis = millis();
-    client.publish("/miam", "mmmmmmhhh");
+    client.publish("/hello", "world");
   }
 }
 
